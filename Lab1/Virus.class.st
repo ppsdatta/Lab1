@@ -1,3 +1,10 @@
+"
+c1 := SampleCell1 new.
+c2 := SampleCell2 new.
+v1 := Virus new dna: 'aagcatafatatgcatgcaagcataacidatgcatgcatcgataaaa'.
+c1 add: v1; 'add: v1 -> this is error as the cell is dead'
+
+"
 Class {
 	#name : #Virus,
 	#superclass : #DNAOrganism,
@@ -25,8 +32,14 @@ Virus >> initialize [
 
 { #category : #cellactions }
 Virus >> invade: aCell [
+	| result|
+	
+	
 	self layers removeAll.
-	^ (1 to: 10) collect: [ :i | aCell parseDNA: self dna forOrganism: self class ]
+	result := (1 to: 10) collect: [ :i | aCell parseDNA: self dna forOrganism: self class ].
+	aCell kill.
+	
+	^ result
 ]
 
 { #category : #accessing }
